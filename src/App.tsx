@@ -416,11 +416,11 @@ export default function App() {
 
       {/* Technical Minimalist Footer */}
       <footer className="border-t border-white/[0.08] bg-[#050609] py-10 pb-28 md:pb-12 text-xs text-slate-500">
-        <div className="max-w-7xl w-full mx-auto px-4 sm:px-8 lg:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
+        <div className="max-w-7xl w-full mx-auto px-4 sm:px-8 lg:px-12 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+          <div className="flex items-center justify-center gap-3">
             <button
               onClick={() => setPage('home')}
-              className="display font-extrabold text-lg tracking-tight text-white hover:text-emerald-300 transition-colors cursor-pointer text-left"
+              className="display font-extrabold text-lg tracking-tight text-white hover:text-emerald-300 transition-colors cursor-pointer text-center md:text-left"
             >
               Chaos<span className="text-emerald-400">Arena</span>
             </button>
@@ -428,11 +428,11 @@ export default function App() {
             <span className="font-mono text-slate-400 text-xs">Arc Testnet Ecosystem</span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4 font-mono text-[11px]">
+          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 font-mono text-[11px]">
             {/* User Manual from docs folder */}
             <button
               onClick={() => setPage('manual')}
-              className={`hover:text-emerald-400 transition-colors flex items-center gap-1.5 px-3 py-1 rounded-full border cursor-pointer ${
+              className={`hover:text-emerald-400 transition-colors flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-full border cursor-pointer ${
                 page === 'manual'
                   ? 'bg-emerald-400 text-slate-950 border-emerald-300 font-bold'
                   : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25 hover:bg-emerald-500/15'
@@ -445,7 +445,7 @@ export default function App() {
 
             <button
               onClick={copyContractAddress}
-              className="hover:text-emerald-400 transition-colors flex items-center gap-1 bg-white/5 px-3 py-1 rounded-full border border-white/5 cursor-pointer"
+              className="hover:text-emerald-400 transition-colors flex items-center justify-center gap-1 bg-white/5 px-3 py-1.5 rounded-full border border-white/5 cursor-pointer"
             >
               <span>Contract: {CHAOS_ARENA.address.slice(0, 8)}…{CHAOS_ARENA.address.slice(-4)}</span>
               {copied ? <Check size={11} className="text-emerald-400" /> : <Copy size={11} />}
@@ -454,7 +454,7 @@ export default function App() {
               href={`${EXPLORER}/address/${CHAOS_ARENA.address}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-emerald-400 transition-colors flex items-center gap-1"
+              className="hover:text-emerald-400 transition-colors flex items-center justify-center gap-1 bg-white/5 px-3 py-1.5 rounded-full border border-white/5"
             >
               Explorer <ExternalLink size={11} />
             </a>
@@ -462,7 +462,7 @@ export default function App() {
               href="https://faucet.circle.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-emerald-400 transition-colors"
+              className="hover:text-emerald-400 transition-colors flex items-center justify-center px-3 py-1.5 rounded-full bg-white/5 border border-white/5"
             >
               Circle Faucet
             </a>
@@ -470,7 +470,7 @@ export default function App() {
               href="https://docs.arc.io"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-emerald-400 transition-colors"
+              className="hover:text-emerald-400 transition-colors flex items-center justify-center px-3 py-1.5 rounded-full bg-white/5 border border-white/5"
             >
               Arc Docs
             </a>
