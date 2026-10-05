@@ -14,17 +14,17 @@ export function KimaHero({ onEnterArena, dareCount, museumCount, lpwBalance }: K
   const [activeTab, setActiveTab] = useState<'dare' | 'museum' | 'lpw' | 'usdc'>('dare')
 
   return (
-    <section className="relative pt-24 pb-16 px-4 sm:px-8 lg:px-12 w-full max-w-[1500px] mx-auto overflow-hidden">
+    <section className="relative pt-20 sm:pt-24 pb-12 sm:pb-16 px-3 sm:px-8 lg:px-12 w-full max-w-[1500px] mx-auto overflow-hidden">
       {/* Subtle ambient lighting */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[55rem] h-[55rem] bg-emerald-500/[0.04] rounded-full blur-[160px] pointer-events-none" />
 
       {/* Hero Header Typography */}
-      <div className="relative z-20 text-center max-w-4xl mx-auto mb-10">
+      <div className="relative z-20 text-center max-w-4xl mx-auto mb-8 sm:mb-10">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 font-mono text-[11px] uppercase tracking-widest mb-6 shadow-sm"
+          className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 font-mono text-[10px] sm:text-[11px] uppercase tracking-widest mb-4 sm:mb-6 shadow-sm"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           _ HIGH-STAKES WEB3 PROTOCOL ON ARC _
@@ -34,7 +34,7 @@ export function KimaHero({ onEnterArena, dareCount, museumCount, lpwBalance }: K
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="display font-black text-4xl sm:text-6xl md:text-7xl tracking-tighter text-white leading-[1.08] mb-5"
+          className="display font-black text-3xl sm:text-6xl md:text-7xl tracking-tighter text-white leading-[1.1] sm:leading-[1.08] mb-4 sm:mb-5 px-1"
         >
           Uniting Chaos <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-300 to-white">
@@ -46,7 +46,7 @@ export function KimaHero({ onEnterArena, dareCount, museumCount, lpwBalance }: K
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-sm sm:text-base text-slate-400 font-normal leading-relaxed max-w-2xl mx-auto mb-8"
+          className="text-xs sm:text-base text-slate-400 font-normal leading-relaxed max-w-2xl mx-auto mb-6 sm:mb-8 px-2"
         >
           An interactive deterministic game arena powered by Circle USDC on Arc.
           Lock real bounties, mint onchain confessions into the Hall of Shame, or steal the ticking doomsday pot.
@@ -56,11 +56,11 @@ export function KimaHero({ onEnterArena, dareCount, museumCount, lpwBalance }: K
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-wrap items-center justify-center gap-3.5"
+          className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3.5 px-4 max-w-md sm:max-w-none mx-auto"
         >
           <button
             onClick={() => onEnterArena(activeTab === 'usdc' ? 'dare' : activeTab)}
-            className="flex items-center gap-2 px-8 py-3.5 rounded-full font-bold text-sm bg-emerald-400 text-slate-950 hover:bg-emerald-300 shadow-xl shadow-emerald-400/25 transition-all duration-200 active:scale-95 cursor-pointer"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-3 rounded-full font-bold text-sm bg-emerald-400 text-slate-950 hover:bg-emerald-300 shadow-xl shadow-emerald-400/25 transition-all duration-200 active:scale-95 cursor-pointer"
           >
             <span>Enter the Arena</span>
             <ArrowRight size={15} />
@@ -70,7 +70,7 @@ export function KimaHero({ onEnterArena, dareCount, museumCount, lpwBalance }: K
             href="https://faucet.circle.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-6 py-3.5 rounded-full font-mono text-xs uppercase tracking-wider text-slate-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-white/10 transition-all duration-200 active:scale-95"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-full font-mono text-xs uppercase tracking-wider text-slate-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-white/10 transition-all duration-200 active:scale-95"
           >
             <Droplets size={13} className="text-emerald-400" />
             <span>Get Testnet USDC</span>
@@ -79,7 +79,7 @@ export function KimaHero({ onEnterArena, dareCount, museumCount, lpwBalance }: K
       </div>
 
       {/* Visual Interactive Canvas (Direct Round Coins, Fluid SVG Curves & Particle Pulses) */}
-      <div className="relative z-10 w-full rounded-3xl bg-[#08090f]/90 border border-white/10 p-4 sm:p-8 overflow-hidden shadow-2xl">
+      <div className="relative z-10 w-full rounded-2xl sm:rounded-3xl bg-[#08090f]/90 border border-white/10 p-2 sm:p-8 overflow-hidden shadow-2xl">
         {/* Subtle grid background */}
         <div className="absolute inset-0 tech-grid opacity-30 pointer-events-none" />
 
@@ -90,7 +90,7 @@ export function KimaHero({ onEnterArena, dareCount, museumCount, lpwBalance }: K
         <span className="absolute bottom-4 right-4 text-[10px] font-mono text-white/20">+</span>
 
         {/* Responsive Canvas Container with 1000x520 aspect ratio */}
-        <div className="relative w-full h-[480px] sm:h-[520px] max-w-5xl mx-auto flex items-center justify-center">
+        <div className="relative w-full h-[410px] sm:h-[520px] max-w-5xl mx-auto flex items-center justify-center">
           {/* SVG Animated Circuit Energy Beams */}
           <svg
             className="absolute inset-0 w-full h-full pointer-events-none"
@@ -178,34 +178,34 @@ export function KimaHero({ onEnterArena, dareCount, museumCount, lpwBalance }: K
               <motion.div
                 animate={{ scale: [1, 1.25, 1], opacity: [0.3, 0.7, 0.3] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -inset-3 rounded-full bg-emerald-400/20 blur-md pointer-events-none"
+                className="absolute -inset-2 sm:-inset-3 rounded-full bg-emerald-400/20 blur-md pointer-events-none"
               />
               <motion.div
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.08 }}
                 onClick={() => onEnterArena(activeTab === 'usdc' ? 'dare' : activeTab)}
-                className="w-24 h-24 rounded-full bg-gradient-to-tr from-emerald-400 via-cyan-400 to-purple-500 p-[2.5px] shadow-2xl shadow-emerald-400/30 cursor-pointer flex items-center justify-center"
+                className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-emerald-400 via-cyan-400 to-purple-500 p-[2px] sm:p-[2.5px] shadow-2xl shadow-emerald-400/30 cursor-pointer flex items-center justify-center"
               >
                 <div className="w-full h-full bg-[#080a10] rounded-full flex flex-col items-center justify-center relative overflow-hidden">
-                  <span className="display font-black text-3xl text-white tracking-tighter">
+                  <span className="display font-black text-xl sm:text-3xl text-white tracking-tighter">
                     C
                   </span>
-                  <span className="text-[9px] font-mono text-emerald-400 font-bold tracking-widest uppercase">
+                  <span className="text-[7px] sm:text-[9px] font-mono text-emerald-400 font-bold tracking-widest uppercase">
                     ARENA
                   </span>
                 </div>
               </motion.div>
             </div>
-            <div className="mt-3 px-3 py-1 rounded-full bg-slate-950/90 border border-white/10 text-[11px] font-mono text-slate-300 flex items-center gap-1.5 shadow-md">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-              <span>Arc Testnet Engine</span>
+            <div className="mt-2 sm:mt-3 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-slate-950/90 border border-white/10 text-[9px] sm:text-[11px] font-mono text-slate-300 flex items-center gap-1 sm:gap-1.5 shadow-md">
+              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-400 animate-ping" />
+              <span>Arc Engine</span>
             </div>
           </div>
 
           {/* ROUND ICON 1: Top-Left (⚡ Onchain Dare Round Coin) */}
           <motion.div
-            animate={{ y: [0, -8, 0] }}
+            animate={{ y: [0, -6, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute top-10 sm:top-12 left-4 sm:left-14 z-20 flex flex-col items-center cursor-pointer group"
+            className="absolute top-4 sm:top-12 left-2 sm:left-14 z-20 flex flex-col items-center cursor-pointer group"
             onClick={() => {
               setActiveTab('dare')
               onEnterArena('dare')
@@ -213,29 +213,29 @@ export function KimaHero({ onEnterArena, dareCount, museumCount, lpwBalance }: K
           >
             {/* Glowing Round Coin (No rectangular card) */}
             <div className="relative">
-              <div className="absolute -inset-2 rounded-full bg-amber-400/20 blur-md group-hover:bg-amber-400/40 transition-all pointer-events-none" />
-              <div className="w-20 h-20 sm:w-22 sm:h-22 rounded-full bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-600 p-[2.5px] shadow-2xl shadow-amber-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <div className="absolute -inset-1.5 sm:-inset-2 rounded-full bg-amber-400/20 blur-md group-hover:bg-amber-400/40 transition-all pointer-events-none" />
+              <div className="w-14 h-14 sm:w-22 sm:h-22 rounded-full bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-600 p-[2px] sm:p-[2.5px] shadow-xl sm:shadow-2xl shadow-amber-500/30 flex items-center justify-center group-hover:scale-105 transition-transform">
                 <div className="w-full h-full rounded-full bg-[#140e04] flex flex-col items-center justify-center text-amber-400">
-                  <Flame size={28} className="animate-pulse" />
+                  <Flame className="w-5 h-5 sm:w-7 sm:h-7 animate-pulse" />
                 </div>
               </div>
             </div>
             {/* Minimalist Info Label Underneath */}
-            <div className="mt-2.5 text-center">
-              <p className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors uppercase tracking-wider font-mono">
-                Onchain Dare
+            <div className="mt-1.5 sm:mt-2.5 text-center max-w-[85px] sm:max-w-none">
+              <p className="text-[10px] sm:text-xs font-bold text-white group-hover:text-amber-300 transition-colors uppercase tracking-wider font-mono truncate sm:overflow-visible">
+                Dares
               </p>
-              <p className="text-[11px] font-mono text-amber-400 font-semibold">
-                {dareCount} Bounties Active
+              <p className="text-[9px] sm:text-[11px] font-mono text-amber-400 font-semibold truncate sm:overflow-visible">
+                {dareCount} Active
               </p>
             </div>
           </motion.div>
 
           {/* ROUND ICON 2: Bottom-Left (💵 Circle USDC Native Round Coin) */}
           <motion.div
-            animate={{ y: [0, 8, 0] }}
+            animate={{ y: [0, 6, 0] }}
             transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute bottom-8 sm:bottom-10 left-4 sm:left-14 z-20 flex flex-col items-center cursor-pointer group"
+            className="absolute bottom-4 sm:bottom-10 left-2 sm:left-14 z-20 flex flex-col items-center cursor-pointer group"
             onClick={() => {
               setActiveTab('usdc')
               window.open('https://faucet.circle.com', '_blank')
@@ -243,29 +243,29 @@ export function KimaHero({ onEnterArena, dareCount, museumCount, lpwBalance }: K
           >
             {/* Glowing Round Coin */}
             <div className="relative">
-              <div className="absolute -inset-2 rounded-full bg-emerald-400/20 blur-md group-hover:bg-emerald-400/40 transition-all pointer-events-none" />
-              <div className="w-18 h-18 sm:w-20 sm:h-20 rounded-full bg-gradient-to-tr from-emerald-400 via-teal-300 to-cyan-500 p-[2.5px] shadow-2xl shadow-emerald-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <div className="absolute -inset-1.5 sm:-inset-2 rounded-full bg-emerald-400/20 blur-md group-hover:bg-emerald-400/40 transition-all pointer-events-none" />
+              <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-gradient-to-tr from-emerald-400 via-teal-300 to-cyan-500 p-[2px] sm:p-[2.5px] shadow-xl sm:shadow-2xl shadow-emerald-500/30 flex items-center justify-center group-hover:scale-105 transition-transform">
                 <div className="w-full h-full rounded-full bg-[#051510] flex flex-col items-center justify-center text-emerald-400">
-                  <Coins size={26} />
+                  <Coins className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
               </div>
             </div>
             {/* Minimalist Info Label Underneath */}
-            <div className="mt-2 text-center">
-              <p className="text-xs font-bold text-white group-hover:text-emerald-300 transition-colors uppercase tracking-wider font-mono">
-                Circle USDC
+            <div className="mt-1.5 sm:mt-2 text-center max-w-[85px] sm:max-w-none">
+              <p className="text-[10px] sm:text-xs font-bold text-white group-hover:text-emerald-300 transition-colors uppercase tracking-wider font-mono truncate sm:overflow-visible">
+                USDC Gas
               </p>
-              <p className="text-[11px] font-mono text-emerald-400 font-semibold">
-                Native Gas Token
+              <p className="text-[9px] sm:text-[11px] font-mono text-emerald-400 font-semibold truncate sm:overflow-visible">
+                Arc Native
               </p>
             </div>
           </motion.div>
 
           {/* ROUND ICON 3: Top-Right (🏛 Museum of Bad Decisions Round Coin) */}
           <motion.div
-            animate={{ y: [0, -8, 0] }}
+            animate={{ y: [0, -6, 0] }}
             transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-            className="absolute top-10 sm:top-12 right-4 sm:right-14 z-20 flex flex-col items-center cursor-pointer group"
+            className="absolute top-4 sm:top-12 right-2 sm:right-14 z-20 flex flex-col items-center cursor-pointer group"
             onClick={() => {
               setActiveTab('museum')
               onEnterArena('museum')
@@ -273,29 +273,29 @@ export function KimaHero({ onEnterArena, dareCount, museumCount, lpwBalance }: K
           >
             {/* Glowing Round Coin */}
             <div className="relative">
-              <div className="absolute -inset-2 rounded-full bg-purple-500/20 blur-md group-hover:bg-purple-500/40 transition-all pointer-events-none" />
-              <div className="w-20 h-20 sm:w-22 sm:h-22 rounded-full bg-gradient-to-tr from-purple-500 via-fuchsia-400 to-pink-500 p-[2.5px] shadow-2xl shadow-purple-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <div className="absolute -inset-1.5 sm:-inset-2 rounded-full bg-purple-500/20 blur-md group-hover:bg-purple-500/40 transition-all pointer-events-none" />
+              <div className="w-14 h-14 sm:w-22 sm:h-22 rounded-full bg-gradient-to-tr from-purple-500 via-fuchsia-400 to-pink-500 p-[2px] sm:p-[2.5px] shadow-xl sm:shadow-2xl shadow-purple-500/30 flex items-center justify-center group-hover:scale-105 transition-transform">
                 <div className="w-full h-full rounded-full bg-[#13061e] flex flex-col items-center justify-center text-purple-300">
-                  <Landmark size={28} />
+                  <Landmark className="w-5 h-5 sm:w-7 sm:h-7" />
                 </div>
               </div>
             </div>
             {/* Minimalist Info Label Underneath */}
-            <div className="mt-2.5 text-center">
-              <p className="text-xs font-bold text-white group-hover:text-purple-300 transition-colors uppercase tracking-wider font-mono">
-                Bad Decisions
+            <div className="mt-1.5 sm:mt-2.5 text-center max-w-[85px] sm:max-w-none">
+              <p className="text-[10px] sm:text-xs font-bold text-white group-hover:text-purple-300 transition-colors uppercase tracking-wider font-mono truncate sm:overflow-visible">
+                Museum
               </p>
-              <p className="text-[11px] font-mono text-purple-400 font-semibold">
-                {museumCount} NFTs Minted
+              <p className="text-[9px] sm:text-[11px] font-mono text-purple-400 font-semibold truncate sm:overflow-visible">
+                {museumCount} NFTs
               </p>
             </div>
           </motion.div>
 
           {/* ROUND ICON 4: Bottom-Right (⏱ Last Person Wins Round Coin) */}
           <motion.div
-            animate={{ y: [0, 8, 0] }}
+            animate={{ y: [0, 6, 0] }}
             transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
-            className="absolute bottom-8 sm:bottom-10 right-4 sm:right-14 z-20 flex flex-col items-center cursor-pointer group"
+            className="absolute bottom-4 sm:bottom-10 right-2 sm:right-14 z-20 flex flex-col items-center cursor-pointer group"
             onClick={() => {
               setActiveTab('lpw')
               onEnterArena('lpw')
@@ -303,20 +303,20 @@ export function KimaHero({ onEnterArena, dareCount, museumCount, lpwBalance }: K
           >
             {/* Glowing Round Coin */}
             <div className="relative">
-              <div className="absolute -inset-2 rounded-full bg-cyan-400/20 blur-md group-hover:bg-cyan-400/40 transition-all pointer-events-none" />
-              <div className="w-20 h-20 sm:w-22 sm:h-22 rounded-full bg-gradient-to-tr from-cyan-400 via-blue-500 to-indigo-500 p-[2.5px] shadow-2xl shadow-cyan-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <div className="absolute -inset-1.5 sm:-inset-2 rounded-full bg-cyan-400/20 blur-md group-hover:bg-cyan-400/40 transition-all pointer-events-none" />
+              <div className="w-14 h-14 sm:w-22 sm:h-22 rounded-full bg-gradient-to-tr from-cyan-400 via-blue-500 to-indigo-500 p-[2px] sm:p-[2.5px] shadow-xl sm:shadow-2xl shadow-cyan-500/30 flex items-center justify-center group-hover:scale-105 transition-transform">
                 <div className="w-full h-full rounded-full bg-[#04111d] flex flex-col items-center justify-center text-cyan-300">
-                  <Timer size={28} className="animate-spin" style={{ animationDuration: '8s' }} />
+                  <Timer className="w-5 h-5 sm:w-7 sm:h-7 animate-spin" style={{ animationDuration: '8s' }} />
                 </div>
               </div>
             </div>
             {/* Minimalist Info Label Underneath */}
-            <div className="mt-2.5 text-center">
-              <p className="text-xs font-bold text-white group-hover:text-cyan-300 transition-colors uppercase tracking-wider font-mono">
-                Last Person Wins
+            <div className="mt-1.5 sm:mt-2.5 text-center max-w-[85px] sm:max-w-none">
+              <p className="text-[10px] sm:text-xs font-bold text-white group-hover:text-cyan-300 transition-colors uppercase tracking-wider font-mono truncate sm:overflow-visible">
+                LPW Game
               </p>
-              <p className="text-[11px] font-mono text-cyan-400 font-semibold">
-                {lpwBalance} USDC Pot
+              <p className="text-[9px] sm:text-[11px] font-mono text-cyan-400 font-semibold truncate sm:overflow-visible">
+                {lpwBalance} USDC
               </p>
             </div>
           </motion.div>

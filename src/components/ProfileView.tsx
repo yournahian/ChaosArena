@@ -124,12 +124,12 @@ export function ProfileView({ onNavigate }: { onNavigate: (page: 'home' | 'dare'
                 {isLpwLeader && <Badge color="yellow">👑 LPW Leader</Badge>}
               </div>
 
-              <div className="flex items-center gap-3 mt-1.5 text-xs font-mono text-slate-400">
+              <div className="flex items-center gap-2 sm:gap-3 mt-1.5 text-xs font-mono text-slate-400 flex-wrap">
                 <button
                   onClick={copyAddress}
                   className="hover:text-emerald-400 transition-colors flex items-center gap-1 cursor-pointer bg-white/5 px-2 py-0.5 rounded border border-white/5"
                 >
-                  <span>{address.slice(0, 10)}…{address.slice(-8)}</span>
+                  <span>{address.slice(0, 6)}…{address.slice(-4)}</span>
                   {copied ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
                 </button>
                 <a
@@ -145,19 +145,19 @@ export function ProfileView({ onNavigate }: { onNavigate: (page: 'home' | 'dare'
           </div>
 
           {/* Quick Actions */}
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0 flex-wrap">
             <a
               href="https://faucet.circle.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-4 py-2 rounded-full font-mono text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 hover:bg-emerald-500/20 transition-all"
+              className="flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-mono text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 hover:bg-emerald-500/20 transition-all"
             >
               <Droplets size={13} />
               Faucet
             </a>
             <button
               onClick={() => disconnect()}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-full font-mono text-xs font-bold bg-rose-500/10 text-rose-400 border border-rose-500/25 hover:bg-rose-500/20 transition-all cursor-pointer"
+              className="flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-mono text-xs font-bold bg-rose-500/10 text-rose-400 border border-rose-500/25 hover:bg-rose-500/20 transition-all cursor-pointer"
             >
               <LogOut size={13} />
               Disconnect
@@ -206,10 +206,10 @@ export function ProfileView({ onNavigate }: { onNavigate: (page: 'home' | 'dare'
       </Card>
 
       {/* Profile Section Navigation Tabs */}
-      <div className="flex items-center gap-2 mb-6 border-b border-white/10 pb-4 overflow-x-auto">
+      <div className="flex items-center gap-2 mb-6 border-b border-white/10 pb-4 overflow-x-auto no-scrollbar">
         <button
           onClick={() => setActiveSubTab('overview')}
-          className={`px-4 py-2 rounded-full font-mono text-xs font-bold transition-all cursor-pointer ${
+          className={`shrink-0 whitespace-nowrap px-3.5 sm:px-4 py-2 rounded-full font-mono text-xs font-bold transition-all cursor-pointer ${
             activeSubTab === 'overview'
               ? 'bg-emerald-400 text-slate-950 shadow-md'
               : 'text-slate-400 hover:text-white bg-slate-900/60'
@@ -219,7 +219,7 @@ export function ProfileView({ onNavigate }: { onNavigate: (page: 'home' | 'dare'
         </button>
         <button
           onClick={() => setActiveSubTab('dares')}
-          className={`px-4 py-2 rounded-full font-mono text-xs font-bold transition-all cursor-pointer ${
+          className={`shrink-0 whitespace-nowrap px-3.5 sm:px-4 py-2 rounded-full font-mono text-xs font-bold transition-all cursor-pointer ${
             activeSubTab === 'dares'
               ? 'bg-amber-400 text-slate-950 shadow-md'
               : 'text-slate-400 hover:text-white bg-slate-900/60'
@@ -229,7 +229,7 @@ export function ProfileView({ onNavigate }: { onNavigate: (page: 'home' | 'dare'
         </button>
         <button
           onClick={() => setActiveSubTab('museum')}
-          className={`px-4 py-2 rounded-full font-mono text-xs font-bold transition-all cursor-pointer ${
+          className={`shrink-0 whitespace-nowrap px-3.5 sm:px-4 py-2 rounded-full font-mono text-xs font-bold transition-all cursor-pointer ${
             activeSubTab === 'museum'
               ? 'bg-purple-500 text-white shadow-md'
               : 'text-slate-400 hover:text-white bg-slate-900/60'
@@ -239,7 +239,7 @@ export function ProfileView({ onNavigate }: { onNavigate: (page: 'home' | 'dare'
         </button>
         <button
           onClick={() => setActiveSubTab('history')}
-          className={`px-4 py-2 rounded-full font-mono text-xs font-bold transition-all cursor-pointer ${
+          className={`shrink-0 whitespace-nowrap px-3.5 sm:px-4 py-2 rounded-full font-mono text-xs font-bold transition-all cursor-pointer ${
             activeSubTab === 'history'
               ? 'bg-cyan-400 text-slate-950 shadow-md'
               : 'text-slate-400 hover:text-white bg-slate-900/60'

@@ -117,7 +117,7 @@ function Countdown({ expiry, onTick }: { expiry: bigint; onTick: (remaining: num
 
       <div className="relative inline-block">
         <p
-          className={`display font-black text-6xl sm:text-7xl tabular-nums tracking-tighter leading-none transition-colors ${
+          className={`display font-black text-5xl sm:text-7xl tabular-nums tracking-tighter leading-none transition-colors ${
             isUrgent
               ? 'text-rose-500 animate-pulse'
               : isWarning
@@ -305,7 +305,7 @@ export function LPWGame() {
             </div>
           ) : (
             <div className="flex flex-col gap-4">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
                 <div>
                   <h3 className="font-bold text-base text-white flex items-center gap-2">
                     <Flame size={16} className="text-amber-400" />
@@ -316,7 +316,7 @@ export function LPWGame() {
                   </p>
                 </div>
 
-                <div className="text-right text-[11px] font-mono text-slate-400">
+                <div className="text-left sm:text-right text-[11px] font-mono text-slate-400">
                   Range: {minFmt} - {maxFmt} USDC
                 </div>
               </div>

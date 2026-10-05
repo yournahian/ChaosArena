@@ -203,7 +203,7 @@ export function Input({
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
         maxLength={maxLength}
-        className="w-full px-4 py-3 rounded-xl text-sm bg-slate-950/80 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400/40 transition-all font-sans"
+        className="w-full px-4 py-3 rounded-xl text-base sm:text-sm bg-slate-950/80 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400/40 transition-all font-sans"
       />
       {suffix && (
         <span className="absolute right-4 text-xs font-mono font-bold text-slate-400 pointer-events-none">
@@ -235,7 +235,7 @@ export function Textarea({
         placeholder={placeholder}
         rows={rows}
         maxLength={maxLength}
-        className="w-full px-4 py-3 rounded-xl text-sm bg-slate-950/80 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400/40 resize-none transition-all font-sans"
+        className="w-full px-4 py-3 rounded-xl text-base sm:text-sm bg-slate-950/80 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400/40 resize-none transition-all font-sans"
       />
       {maxLength && (
         <span className="absolute right-3 bottom-2.5 text-[10px] font-mono text-slate-500 pointer-events-none">

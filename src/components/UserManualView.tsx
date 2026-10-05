@@ -74,19 +74,19 @@ export function UserManualView({
 
       {/* Main Grid: Sticky Sidebar + Full Complete Content */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Navigation Sidebar */}
-        <aside className="lg:col-span-3 sticky top-24 flex flex-col gap-1.5 p-3 rounded-2xl bg-[#090b10] border border-white/10">
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 px-3 py-1 font-bold">
+        {/* Navigation Sidebar (Swipeable chips on mobile, sticky vertical sidebar on desktop) */}
+        <aside className="lg:col-span-3 lg:sticky lg:top-24 flex flex-row lg:flex-col gap-1.5 p-2 sm:p-3 rounded-2xl bg-[#090b10] border border-white/10 overflow-x-auto no-scrollbar shrink-0 w-full">
+          <span className="hidden lg:block text-[10px] font-mono uppercase tracking-widest text-slate-500 px-3 py-1 font-bold">
             MANUAL SECTIONS
           </span>
           {[
-            { id: 'before-you-start', label: '1. Before You Start', icon: BookOpen },
-            { id: 'game-1', label: '2. Game 1: Onchain Dare', icon: Flame },
-            { id: 'game-2', label: '3. Game 2: Museum', icon: Landmark },
-            { id: 'game-3', label: '4. Game 3: Last Person Wins', icon: Timer },
-            { id: 'general-notes', label: '5. General Notes', icon: Info },
-            { id: 'common-questions', label: '6. Common Questions', icon: HelpCircle },
-            { id: 'security', label: '7. Security Notes', icon: ShieldCheck },
+            { id: 'before-you-start', label: '1. Before Start', fullLabel: '1. Before You Start', icon: BookOpen },
+            { id: 'game-1', label: '2. Dares', fullLabel: '2. Game 1: Onchain Dare', icon: Flame },
+            { id: 'game-2', label: '3. Museum', fullLabel: '3. Game 2: Museum', icon: Landmark },
+            { id: 'game-3', label: '4. LPW', fullLabel: '4. Game 3: Last Person Wins', icon: Timer },
+            { id: 'general-notes', label: '5. Notes', fullLabel: '5. General Notes', icon: Info },
+            { id: 'common-questions', label: '6. Q&A', fullLabel: '6. Common Questions', icon: HelpCircle },
+            { id: 'security', label: '7. Security', fullLabel: '7. Security Notes', icon: ShieldCheck },
           ].map(sec => {
             const Icon = sec.icon
             const isActive = activeSection === sec.id
@@ -97,17 +97,18 @@ export function UserManualView({
                   setActiveSection(sec.id as any)
                   window.scrollTo({ top: 0, behavior: 'smooth' })
                 }}
-                className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-mono transition-all text-left cursor-pointer ${
+                className={`flex items-center justify-between px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl text-xs font-mono transition-all text-left cursor-pointer shrink-0 whitespace-nowrap ${
                   isActive
                     ? 'bg-emerald-400 text-slate-950 font-bold shadow-md shadow-emerald-400/20'
-                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                    : 'text-slate-400 hover:text-white hover:bg-white/5 bg-slate-900/60 lg:bg-transparent'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
+                <div className="flex items-center gap-2 sm:gap-2.5">
                   <Icon size={14} className={isActive ? 'text-slate-950' : 'text-slate-400'} />
-                  <span>{sec.label}</span>
+                  <span className="lg:hidden">{sec.label}</span>
+                  <span className="hidden lg:inline">{sec.fullLabel}</span>
                 </div>
-                <ChevronRight size={12} className={isActive ? 'opacity-100' : 'opacity-30'} />
+                <ChevronRight size={12} className={`hidden lg:block ${isActive ? 'opacity-100' : 'opacity-30'}`} />
               </button>
             )
           })}

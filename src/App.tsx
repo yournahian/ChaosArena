@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { ConnectKitButton } from 'connectkit'
 import { useAccount, useSwitchChain, useReadContract } from 'wagmi'
 import { Toaster, toast } from 'sonner'
-import { Flame, Landmark, Timer, ExternalLink, Copy, Check, Droplets, Zap, User, ArrowLeft, ArrowUpRight, BookOpen } from 'lucide-react'
+import { Flame, Landmark, Timer, ExternalLink, Copy, Check, Droplets, Zap, User, ArrowLeft, ArrowUpRight, BookOpen, Sparkles } from 'lucide-react'
 import { KimaHero } from './components/KimaHero'
 import { TechFeaturesRuler } from './components/TechFeaturesRuler'
 import { HowTheMagicHappens } from './components/HowTheMagicHappens'
@@ -65,14 +65,14 @@ export default function App() {
       <Toaster position="top-right" richColors theme="dark" />
 
       {/* Floating Kima-Style Capsule Header */}
-      <div className="fixed top-4 inset-x-0 z-50 px-3 sm:px-6 pointer-events-none">
-        <header className="max-w-[1400px] w-full mx-auto pill-navbar rounded-full px-4 sm:px-6 py-2.5 flex items-center justify-between pointer-events-auto shadow-2xl gap-3">
+      <div className="fixed top-2 sm:top-4 inset-x-0 z-50 px-2 sm:px-6 pointer-events-none">
+        <header className="max-w-[1400px] w-full mx-auto pill-navbar rounded-full px-3 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between pointer-events-auto shadow-2xl gap-2 sm:gap-3">
           {/* Brand Wordmark (Navigates to Home) */}
           <button
             onClick={() => setPage('home')}
-            className="flex items-center gap-2 cursor-pointer shrink-0 text-left"
+            className="flex items-center gap-1.5 sm:gap-2 cursor-pointer shrink-0 text-left"
           >
-            <span className="display font-extrabold text-lg sm:text-xl tracking-tight text-white hover:text-emerald-300 transition-colors">
+            <span className="display font-extrabold text-base sm:text-xl tracking-tight text-white hover:text-emerald-300 transition-colors">
               Chaos<span className="text-emerald-400">Arena</span>
             </span>
             <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 hidden md:inline-block">
@@ -80,7 +80,7 @@ export default function App() {
             </span>
           </button>
 
-          {/* Center Floating Navigation for Independent Pages */}
+          {/* Center Floating Navigation for Independent Pages (Desktop) */}
           <nav className="hidden md:flex items-center gap-1 bg-black/40 p-1 rounded-full border border-white/10 shrink-0">
             <button
               onClick={() => setPage('home')}
@@ -125,11 +125,11 @@ export default function App() {
           </nav>
 
           {/* Right Action Bar (With Profile & Connect Wallet without clipping) */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             {wrongChain && (
               <button
                 onClick={() => switchChain({ chainId: CHAIN_ID })}
-                className="text-xs px-3 py-1.5 rounded-full font-bold bg-rose-500 hover:bg-rose-400 text-white shadow-lg animate-pulse shrink-0"
+                className="text-[10px] sm:text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full font-bold bg-rose-500 hover:bg-rose-400 text-white shadow-lg animate-pulse shrink-0"
               >
                 Switch to Arc
               </button>
@@ -146,10 +146,10 @@ export default function App() {
             </a>
 
             {/* Wallet & Profile Group */}
-            <div className="flex items-center gap-1 bg-black/50 p-1 rounded-full border border-white/10 shrink-0">
+            <div className="flex items-center gap-1 bg-black/50 p-0.5 sm:p-1 rounded-full border border-white/10 shrink-0">
               <button
                 onClick={() => setPage('profile')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full font-mono text-xs font-bold transition-all cursor-pointer ${
+                className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full font-mono text-xs font-bold transition-all cursor-pointer ${
                   page === 'profile'
                     ? 'bg-emerald-400 text-slate-950 shadow-md'
                     : 'text-slate-300 hover:text-white hover:bg-white/10'
@@ -157,7 +157,7 @@ export default function App() {
                 title="View your profile, game history & balances"
               >
                 <User size={13} className={page === 'profile' ? 'text-slate-950' : 'text-emerald-400'} />
-                <span>Profile</span>
+                <span className="hidden sm:inline">Profile</span>
               </button>
 
               <div className="shrink-0 min-w-max">
@@ -165,15 +165,18 @@ export default function App() {
                   {({ isConnected, isConnecting, show, address, ensName }) => (
                     <button
                       onClick={show}
-                      className="px-3.5 py-1.5 rounded-full font-mono text-xs font-bold transition-all cursor-pointer bg-white hover:bg-slate-200 text-slate-950 shadow-sm flex items-center gap-1.5 shrink-0"
+                      className="px-2.5 sm:px-3.5 py-1.5 rounded-full font-mono text-xs font-bold transition-all cursor-pointer bg-white hover:bg-slate-200 text-slate-950 shadow-sm flex items-center gap-1 sm:gap-1.5 shrink-0"
                     >
                       {isConnected ? (
                         <>
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                          <span>{ensName ?? (address ? `${address.slice(0, 6)}…${address.slice(-4)}` : 'Connected')}</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                          <span>{ensName ?? (address ? `${address.slice(0, 4)}…${address.slice(-3)}` : 'Connected')}</span>
                         </>
                       ) : (
-                        <span>{isConnecting ? 'Connecting…' : 'Connect Wallet'}</span>
+                        <>
+                          <span className="sm:hidden">{isConnecting ? '…' : 'Connect'}</span>
+                          <span className="hidden sm:inline">{isConnecting ? 'Connecting…' : 'Connect Wallet'}</span>
+                        </>
                       )}
                     </button>
                   )}
@@ -185,7 +188,7 @@ export default function App() {
       </div>
 
       {/* Main Content Rendered by Selected Page */}
-      <main className="flex-1 w-full">
+      <main className="flex-1 w-full pb-16 md:pb-0">
         {/* ========================================================= */}
         {/* PAGE 1: HOME / LANDING PAGE SHOWCASE                      */}
         {/* ========================================================= */}
@@ -412,7 +415,7 @@ export default function App() {
       </main>
 
       {/* Technical Minimalist Footer */}
-      <footer className="border-t border-white/[0.08] bg-[#050609] py-12 text-xs text-slate-500">
+      <footer className="border-t border-white/[0.08] bg-[#050609] py-10 pb-28 md:pb-12 text-xs text-slate-500">
         <div className="max-w-7xl w-full mx-auto px-4 sm:px-8 lg:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <button
@@ -425,7 +428,7 @@ export default function App() {
             <span className="font-mono text-slate-400 text-xs">Arc Testnet Ecosystem</span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 font-mono text-[11px]">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4 font-mono text-[11px]">
             {/* User Manual from docs folder */}
             <button
               onClick={() => setPage('manual')}
@@ -444,7 +447,7 @@ export default function App() {
               onClick={copyContractAddress}
               className="hover:text-emerald-400 transition-colors flex items-center gap-1 bg-white/5 px-3 py-1 rounded-full border border-white/5 cursor-pointer"
             >
-              <span>Contract: {CHAOS_ARENA.address.slice(0, 10)}…{CHAOS_ARENA.address.slice(-6)}</span>
+              <span>Contract: {CHAOS_ARENA.address.slice(0, 8)}…{CHAOS_ARENA.address.slice(-4)}</span>
               {copied ? <Check size={11} className="text-emerald-400" /> : <Copy size={11} />}
             </button>
             <a
@@ -474,6 +477,67 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Floating Mobile Bottom Navigation Dock (Only on mobile < md screens) */}
+      <div className="md:hidden fixed bottom-3 inset-x-3 z-50 pointer-events-none">
+        <nav className="pill-navbar rounded-2xl px-1.5 py-1.5 flex items-center justify-around pointer-events-auto shadow-2xl border border-white/15 bg-[#090b12]/95 backdrop-blur-xl max-w-sm mx-auto">
+          <button
+            onClick={() => setPage('home')}
+            className={`flex flex-col items-center justify-center gap-0.5 py-1 px-3 rounded-xl transition-all cursor-pointer ${
+              page === 'home'
+                ? 'text-emerald-400 bg-emerald-500/15 font-bold shadow-sm'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Sparkles size={17} />
+            <span className="text-[10px] font-mono tracking-tight">Home</span>
+          </button>
+          <button
+            onClick={() => setPage('dare')}
+            className={`flex flex-col items-center justify-center gap-0.5 py-1 px-3 rounded-xl transition-all cursor-pointer ${
+              page === 'dare'
+                ? 'text-amber-400 bg-amber-500/15 font-bold shadow-sm'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Flame size={17} />
+            <span className="text-[10px] font-mono tracking-tight">Dares</span>
+          </button>
+          <button
+            onClick={() => setPage('museum')}
+            className={`flex flex-col items-center justify-center gap-0.5 py-1 px-3 rounded-xl transition-all cursor-pointer ${
+              page === 'museum'
+                ? 'text-purple-400 bg-purple-500/15 font-bold shadow-sm'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Landmark size={17} />
+            <span className="text-[10px] font-mono tracking-tight">Museum</span>
+          </button>
+          <button
+            onClick={() => setPage('lpw')}
+            className={`flex flex-col items-center justify-center gap-0.5 py-1 px-3 rounded-xl transition-all cursor-pointer ${
+              page === 'lpw'
+                ? 'text-cyan-400 bg-cyan-500/15 font-bold shadow-sm'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Timer size={17} />
+            <span className="text-[10px] font-mono tracking-tight">LPW</span>
+          </button>
+          <button
+            onClick={() => setPage('profile')}
+            className={`flex flex-col items-center justify-center gap-0.5 py-1 px-3 rounded-xl transition-all cursor-pointer ${
+              page === 'profile'
+                ? 'text-emerald-400 bg-emerald-500/15 font-bold shadow-sm'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <User size={17} />
+            <span className="text-[10px] font-mono tracking-tight">Profile</span>
+          </button>
+        </nav>
+      </div>
     </div>
   )
 }
