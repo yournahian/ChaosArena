@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Premium Dark Titanium Palette (Kima Web3 Design Style) */
+  --bg-core: #08090d;
+  --bg-elevated: #0f1118;
+  --bg-card: rgba(15, 18, 25, 0.75);
+  --bg-card-hover: rgba(22, 26, 38, 0.9);
+  --bg-glass: rgba(12, 14, 20, 0.65);
+
+  /* Precise Neon Accents */
+  --neon-cyan: #00f2fe;
+  --neon-mint: #00f5a0;
+  --neon-purple: #a855f7;
+  --neon-amber: #fbbf24;
+  --neon-rose: #ff007a;
+
+  /* Typography & Signal Colors */
+  --ink-primary: #f8fafc;
+  --ink-secondary: #94a3b8;
+  --ink-tertiary: #64748b;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-active: rgba(0, 242, 254, 0.35);
+  --border-mint: rgba(0, 245, 160, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  min-height: 100dvh;
+  background-color: var(--bg-core);
+  color: var(--ink-primary);
+  overflow-x: hidden;
+}
+
+/* Typography styles */
+.display {
+  font-family: 'Outfit', 'Space Grotesk', sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-feature-settings: "zero" 1;
+}
+
+/* Subtle Engineering Grid Background */
+.tech-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Kima-style Glass Panel */
+.kima-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kima-card:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+}
+
+/* Technical Corner Crosshairs */
+.corner-crosshair {
+  position: relative;
+}
+
+.corner-crosshair::before,
+.corner-crosshair::after {
+  content: '+';
+  position: absolute;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.2);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.corner-crosshair::before {
+  top: 8px;
+  left: 8px;
+}
+
+.corner-crosshair::after {
+  bottom: 8px;
+  right: 8px;
+}
+
+/* Infinite Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-chaos {
+  display: flex;
+  width: max-content;
+  animation: marquee 20s linear infinite;
+  will-change: transform;
+}
+
+/* Circuit Line Pulse */
+@keyframes dash-pulse {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+.circuit-pulse {
+  stroke-dasharray: 8 6;
+  animation: dash-pulse 1.8s linear infinite;
+}
+
+/* Glow Utilities */
+.glow-mint {
+  box-shadow: 0 0 30px -5px rgba(0, 245, 160, 0.3);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 30px -5px rgba(0, 242, 254, 0.3);
+}
+
+.glow-purple {
+  box-shadow: 0 0 30px -5px rgba(168, 85, 247, 0.3);
+}
+
+/* Floating Pill Navbar */
+.pill-navbar {
+  background: rgba(14, 16, 23, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-mint);
+}
