@@ -4,7 +4,7 @@
  */
 
 import { getUsdc, requireChain } from '@/onchain-facts'
-import artifact from '../contracts/out/ChaosArena.sol/ChaosArena.json'
+import artifact from '../contracts/contract-metadata/ChaosArena.json'
 
 export const CHAIN_ID = 5042002 // Arc Testnet
 
