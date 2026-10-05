@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { ConnectKitButton } from 'connectkit'
 import { useAccount, useSwitchChain, useReadContract } from 'wagmi'
 import { Toaster, toast } from 'sonner'
-import { Flame, Landmark, Timer, ExternalLink, Copy, Check, Droplets, Zap, User, ArrowLeft, ArrowUpRight, BookOpen, Sparkles } from 'lucide-react'
+import { Flame, Landmark, Timer, ExternalLink, Copy, Check, Droplets, Zap, User, ArrowLeft, ArrowUpRight, BookOpen, Sparkles, Shield } from 'lucide-react'
 import { KimaHero } from './components/KimaHero'
 import { TechFeaturesRuler } from './components/TechFeaturesRuler'
 import { HowTheMagicHappens } from './components/HowTheMagicHappens'
@@ -10,17 +10,68 @@ import { ChaosTicker } from './components/ChaosTicker'
 import { Tokenomics3D } from './components/Tokenomics3D'
 import { ProfileView } from './components/ProfileView'
 import { UserManualView } from './components/UserManualView'
+import { AdminView } from './components/AdminView'
 import { DareGame } from './components/DareGame'
 import { MuseumGame } from './components/MuseumGame'
 import { LPWGame } from './components/LPWGame'
 import { CHAIN_ID, CHAOS_ARENA, EXPLORER } from './chaosArena'
 import { formatUnits } from 'viem'
 
-export type Page = 'home' | 'dare' | 'museum' | 'lpw' | 'profile' | 'manual'
+export type Page = 'home' | 'dare' | 'museum' | 'lpw' | 'profile' | 'manual' | 'admin'
+
+const getInitialPage = (): Page => {
+  if (typeof window !== 'undefined') {
+    const path = window.location.pathname.toLowerCase()
+    if (path.startsWith('/admin')) return 'admin'
+    if (path.startsWith('/manual')) return 'manual'
+    if (path.startsWith('/profile')) return 'profile'
+    if (path.startsWith('/dare')) return 'dare'
+    if (path.startsWith('/museum')) return 'museum'
+    if (path.startsWith('/lpw')) return 'lpw'
+  }
+  return 'home'
+}
 
 export default function App() {
-  const [page, setPage] = useState<Page>('home')
+  const [page, setPage] = useState<Page>(getInitialPage)
   const [copied, setCopied] = useState(false)
+  const [logoClicks, setLogoClicks] = useState(0)
+
+  const navigateTo = (newPage: Page) => {
+    setPage(newPage)
+    if (typeof window !== 'undefined') {
+      const targetPath = newPage === 'home' ? '/' : `/${newPage}`
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState({ page: newPage }, '', targetPath)
+      }
+    }
+  }
+
+  // Handle browser popstate (back / forward navigation)
+  useEffect(() => {
+    const handlePopState = () => {
+      setPage(getInitialPage())
+    }
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
+
+  // Triple-click on logo triggers admin ops console
+  const handleLogoClick = () => {
+    setLogoClicks(prev => {
+      const next = prev + 1
+      if (next >= 3) {
+        navigateTo('admin')
+        toast.info('Ops Admin Console accessed')
+        return 0
+      }
+      return next
+    })
+    setTimeout(() => setLogoClicks(0), 1500)
+    if (page !== 'admin') {
+      navigateTo('home')
+    }
+  }
 
   const { address, chainId, isConnected } = useAccount()
   const { switchChain } = useSwitchChain()
@@ -67,10 +118,11 @@ export default function App() {
       {/* Floating Kima-Style Capsule Header */}
       <div className="fixed top-2 sm:top-4 inset-x-0 z-50 px-2 sm:px-6 pointer-events-none">
         <header className="max-w-[1400px] w-full mx-auto pill-navbar rounded-full px-3 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between pointer-events-auto shadow-2xl gap-2 sm:gap-3">
-          {/* Brand Wordmark (Navigates to Home) */}
+          {/* Brand Wordmark (Navigates to Home / Triple-click for Ops Admin) */}
           <button
-            onClick={() => setPage('home')}
+            onClick={handleLogoClick}
             className="flex items-center gap-1.5 sm:gap-2 cursor-pointer shrink-0 text-left"
+            title="ChaosArena (Triple-click for Ops Admin)"
           >
             <span className="display font-extrabold text-base sm:text-xl tracking-tight text-white hover:text-emerald-300 transition-colors">
               Chaos<span className="text-emerald-400">Arena</span>
@@ -83,7 +135,7 @@ export default function App() {
           {/* Center Floating Navigation for Independent Pages (Desktop) */}
           <nav className="hidden md:flex items-center gap-1 bg-black/40 p-1 rounded-full border border-white/10 shrink-0">
             <button
-              onClick={() => setPage('home')}
+              onClick={() => navigateTo('home')}
               className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-all cursor-pointer ${
                 page === 'home'
                   ? 'bg-emerald-400 text-slate-950 shadow-md font-bold'
@@ -93,7 +145,7 @@ export default function App() {
               Home
             </button>
             <button
-              onClick={() => setPage('dare')}
+              onClick={() => navigateTo('dare')}
               className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-all cursor-pointer ${
                 page === 'dare'
                   ? 'bg-amber-400 text-slate-950 shadow-md font-bold'
@@ -103,7 +155,7 @@ export default function App() {
               Dares
             </button>
             <button
-              onClick={() => setPage('museum')}
+              onClick={() => navigateTo('museum')}
               className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-all cursor-pointer ${
                 page === 'museum'
                   ? 'bg-purple-500 text-white shadow-md font-bold'
@@ -113,7 +165,7 @@ export default function App() {
               Museum
             </button>
             <button
-              onClick={() => setPage('lpw')}
+              onClick={() => navigateTo('lpw')}
               className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-all cursor-pointer ${
                 page === 'lpw'
                   ? 'bg-cyan-400 text-slate-950 shadow-md font-bold'
@@ -148,7 +200,7 @@ export default function App() {
             {/* Wallet & Profile Group */}
             <div className="flex items-center gap-1 bg-black/50 p-0.5 sm:p-1 rounded-full border border-white/10 shrink-0">
               <button
-                onClick={() => setPage('profile')}
+                onClick={() => navigateTo('profile')}
                 className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full font-mono text-xs font-bold transition-all cursor-pointer ${
                   page === 'profile'
                     ? 'bg-emerald-400 text-slate-950 shadow-md'
@@ -196,7 +248,7 @@ export default function App() {
           <div>
             {/* Kima Hero with Direct Round Coins & Energy Streams */}
             <KimaHero
-              onEnterArena={p => setPage(p ?? 'dare')}
+              onEnterArena={p => navigateTo(p ?? 'dare')}
               dareCount={dareCount}
               museumCount={museumCount}
               lpwBalance={lpwBalance}
@@ -230,9 +282,9 @@ export default function App() {
             {/* Tech Features Ruler Track (01-04) */}
             <TechFeaturesRuler
               onSelectFeature={i => {
-                if (i === 1) setPage('dare')
-                if (i === 2) setPage('museum')
-                if (i === 3) setPage('lpw')
+                if (i === 1) navigateTo('dare')
+                if (i === 2) navigateTo('museum')
+                if (i === 3) navigateTo('lpw')
               }}
             />
 
@@ -243,7 +295,7 @@ export default function App() {
             <ChaosTicker />
 
             {/* 3D Token Ring & Specs Section */}
-            <Tokenomics3D onStart={() => setPage('dare')} />
+            <Tokenomics3D onStart={() => navigateTo('dare')} />
 
             {/* Arena Game Portals CTA */}
             <section className="py-20 px-4 sm:px-8 lg:px-12 w-full max-w-7xl mx-auto">
@@ -258,7 +310,7 @@ export default function App() {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div
-                  onClick={() => setPage('dare')}
+                  onClick={() => navigateTo('dare')}
                   className="p-8 rounded-3xl bg-[#090b10] border border-white/10 hover:border-amber-400/50 transition-all cursor-pointer group flex flex-col justify-between"
                 >
                   <div>
@@ -283,7 +335,7 @@ export default function App() {
                 </div>
 
                 <div
-                  onClick={() => setPage('museum')}
+                  onClick={() => navigateTo('museum')}
                   className="p-8 rounded-3xl bg-[#090b10] border border-white/10 hover:border-purple-400/50 transition-all cursor-pointer group flex flex-col justify-between"
                 >
                   <div>
@@ -308,7 +360,7 @@ export default function App() {
                 </div>
 
                 <div
-                  onClick={() => setPage('lpw')}
+                  onClick={() => navigateTo('lpw')}
                   className="p-8 rounded-3xl bg-[#090b10] border border-white/10 hover:border-cyan-400/50 transition-all cursor-pointer group flex flex-col justify-between"
                 >
                   <div>
@@ -343,7 +395,7 @@ export default function App() {
           <div className="pt-28 pb-20 px-4 sm:px-8 lg:px-12 w-full max-w-7xl mx-auto">
             <div className="flex items-center gap-3 mb-6">
               <button
-                onClick={() => setPage('home')}
+                onClick={() => navigateTo('home')}
                 className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 text-xs font-mono text-slate-400 hover:text-white transition-all cursor-pointer"
               >
                 <ArrowLeft size={13} /> Back to Home
@@ -360,7 +412,7 @@ export default function App() {
           <div className="pt-28 pb-20 px-4 sm:px-8 lg:px-12 w-full max-w-7xl mx-auto">
             <div className="flex items-center gap-3 mb-6">
               <button
-                onClick={() => setPage('home')}
+                onClick={() => navigateTo('home')}
                 className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 text-xs font-mono text-slate-400 hover:text-white transition-all cursor-pointer"
               >
                 <ArrowLeft size={13} /> Back to Home
@@ -377,7 +429,7 @@ export default function App() {
           <div className="pt-28 pb-20 px-4 sm:px-8 lg:px-12 w-full max-w-7xl mx-auto">
             <div className="flex items-center gap-3 mb-6">
               <button
-                onClick={() => setPage('home')}
+                onClick={() => navigateTo('home')}
                 className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 text-xs font-mono text-slate-400 hover:text-white transition-all cursor-pointer"
               >
                 <ArrowLeft size={13} /> Back to Home
@@ -394,13 +446,13 @@ export default function App() {
           <div className="pt-28 pb-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 mb-4">
               <button
-                onClick={() => setPage('home')}
+                onClick={() => navigateTo('home')}
                 className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 text-xs font-mono text-slate-400 hover:text-white transition-all cursor-pointer"
               >
                 <ArrowLeft size={13} /> Back to Home
               </button>
             </div>
-            <ProfileView onNavigate={p => setPage(p)} />
+            <ProfileView onNavigate={p => navigateTo(p)} />
           </div>
         )}
 
@@ -409,7 +461,16 @@ export default function App() {
         {/* ========================================================= */}
         {page === 'manual' && (
           <div className="pt-28 pb-20">
-            <UserManualView onNavigate={p => setPage(p)} />
+            <UserManualView onNavigate={p => navigateTo(p)} />
+          </div>
+        )}
+
+        {/* ========================================================= */}
+        {/* PAGE 7: DEDICATED READ-ONLY OPS ADMIN PAGE               */}
+        {/* ========================================================= */}
+        {page === 'admin' && (
+          <div className="pt-24 pb-20">
+            <AdminView onBack={() => navigateTo('home')} />
           </div>
         )}
       </main>
@@ -419,7 +480,7 @@ export default function App() {
         <div className="max-w-7xl w-full mx-auto px-4 sm:px-8 lg:px-12 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div className="flex items-center justify-center gap-3">
             <button
-              onClick={() => setPage('home')}
+              onClick={() => navigateTo('home')}
               className="display font-extrabold text-lg tracking-tight text-white hover:text-emerald-300 transition-colors cursor-pointer text-center md:text-left"
             >
               Chaos<span className="text-emerald-400">Arena</span>
@@ -431,7 +492,7 @@ export default function App() {
           <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 font-mono text-[11px]">
             {/* User Manual from docs folder */}
             <button
-              onClick={() => setPage('manual')}
+              onClick={() => navigateTo('manual')}
               className={`hover:text-emerald-400 transition-colors flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-full border cursor-pointer ${
                 page === 'manual'
                   ? 'bg-emerald-400 text-slate-950 border-emerald-300 font-bold'
@@ -441,6 +502,20 @@ export default function App() {
             >
               <BookOpen size={12} className={page === 'manual' ? 'text-slate-950' : 'text-emerald-400'} />
               <span>User Manual</span>
+            </button>
+
+            {/* Ops Admin Console Link */}
+            <button
+              onClick={() => navigateTo('admin')}
+              className={`hover:text-rose-400 transition-colors flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full border cursor-pointer ${
+                page === 'admin'
+                  ? 'bg-rose-500/20 text-rose-300 border-rose-500/40 font-bold'
+                  : 'bg-white/5 text-slate-400 border-white/5 hover:bg-white/10 hover:text-white'
+              }`}
+              title="ChaosArena Real-Time Ops Admin Dashboard"
+            >
+              <Shield size={12} className={page === 'admin' ? 'text-rose-400' : 'text-slate-400'} />
+              <span>Ops Admin</span>
             </button>
 
             <button
@@ -482,7 +557,7 @@ export default function App() {
       <div className="md:hidden fixed bottom-3 inset-x-3 z-50 pointer-events-none">
         <nav className="pill-navbar rounded-2xl px-1.5 py-1.5 flex items-center justify-around pointer-events-auto shadow-2xl border border-white/15 bg-[#090b12]/95 backdrop-blur-xl max-w-sm mx-auto">
           <button
-            onClick={() => setPage('home')}
+            onClick={() => navigateTo('home')}
             className={`flex flex-col items-center justify-center gap-0.5 py-1 px-3 rounded-xl transition-all cursor-pointer ${
               page === 'home'
                 ? 'text-emerald-400 bg-emerald-500/15 font-bold shadow-sm'
@@ -493,7 +568,7 @@ export default function App() {
             <span className="text-[10px] font-mono tracking-tight">Home</span>
           </button>
           <button
-            onClick={() => setPage('dare')}
+            onClick={() => navigateTo('dare')}
             className={`flex flex-col items-center justify-center gap-0.5 py-1 px-3 rounded-xl transition-all cursor-pointer ${
               page === 'dare'
                 ? 'text-amber-400 bg-amber-500/15 font-bold shadow-sm'
@@ -504,7 +579,7 @@ export default function App() {
             <span className="text-[10px] font-mono tracking-tight">Dares</span>
           </button>
           <button
-            onClick={() => setPage('museum')}
+            onClick={() => navigateTo('museum')}
             className={`flex flex-col items-center justify-center gap-0.5 py-1 px-3 rounded-xl transition-all cursor-pointer ${
               page === 'museum'
                 ? 'text-purple-400 bg-purple-500/15 font-bold shadow-sm'
@@ -515,7 +590,7 @@ export default function App() {
             <span className="text-[10px] font-mono tracking-tight">Museum</span>
           </button>
           <button
-            onClick={() => setPage('lpw')}
+            onClick={() => navigateTo('lpw')}
             className={`flex flex-col items-center justify-center gap-0.5 py-1 px-3 rounded-xl transition-all cursor-pointer ${
               page === 'lpw'
                 ? 'text-cyan-400 bg-cyan-500/15 font-bold shadow-sm'
@@ -526,7 +601,7 @@ export default function App() {
             <span className="text-[10px] font-mono tracking-tight">LPW</span>
           </button>
           <button
-            onClick={() => setPage('profile')}
+            onClick={() => navigateTo('profile')}
             className={`flex flex-col items-center justify-center gap-0.5 py-1 px-3 rounded-xl transition-all cursor-pointer ${
               page === 'profile'
                 ? 'text-emerald-400 bg-emerald-500/15 font-bold shadow-sm'
