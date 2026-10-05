@@ -5,6 +5,7 @@ import { EXPLORER } from '../chaosArena'
 export function Card({
   children,
   className = '',
+  id,
   style,
   glow,
   interactive,
@@ -12,23 +13,26 @@ export function Card({
 }: {
   children: ReactNode
   className?: string
+  id?: string
   style?: React.CSSProperties
-  glow?: 'cyan' | 'mint' | 'purple' | 'amber'
+  glow?: 'cyan' | 'mint' | 'purple' | 'amber' | 'gold' | 'pink'
   interactive?: boolean
   crosshair?: boolean
 }) {
-  const glowBorder = glow
-    ? glow === 'cyan'
+  const normalizedGlow = glow === 'gold' ? 'amber' : glow === 'pink' ? 'purple' : glow
+  const glowBorder = normalizedGlow
+    ? normalizedGlow === 'cyan'
       ? 'border-cyan-500/40 glow-cyan'
-      : glow === 'mint'
+      : normalizedGlow === 'mint'
       ? 'border-emerald-400/40 glow-mint'
-      : glow === 'purple'
+      : normalizedGlow === 'purple'
       ? 'border-purple-500/40 glow-purple'
       : 'border-amber-400/40'
     : 'border-white/[0.08]'
 
   return (
     <div
+      id={id}
       className={`kima-card p-6 sm:p-7 border ${glowBorder} ${
         interactive ? 'hover:border-white/25 cursor-pointer' : ''
       } ${crosshair ? 'corner-crosshair' : ''} ${className}`}
@@ -41,13 +45,22 @@ export function Card({
   )
 }
 
-export function TechBadge({ children, color = 'mint' }: { children: ReactNode; color?: 'mint' | 'cyan' | 'purple' | 'amber' }) {
+export function TechBadge({
+  children,
+  color = 'mint',
+}: {
+  children: ReactNode
+  color?: 'mint' | 'cyan' | 'purple' | 'amber' | 'gold' | 'pink' | 'emerald'
+}) {
+  const normalizedColor =
+    color === 'gold' ? 'amber' : color === 'emerald' ? 'mint' : color === 'pink' ? 'purple' : color
+
   const colors = {
     mint: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/25',
     cyan: 'text-cyan-400 bg-cyan-500/10 border-cyan-500/25',
     purple: 'text-purple-400 bg-purple-500/10 border-purple-500/25',
     amber: 'text-amber-400 bg-amber-500/10 border-amber-500/25',
-  }[color]
+  }[normalizedColor]
 
   return (
     <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium tracking-wide uppercase border ${colors}`}>
@@ -114,15 +127,18 @@ export function PrimaryBtn({
   onClick?: () => void
   disabled?: boolean
   loading?: boolean
-  variant?: 'mint' | 'cyan' | 'purple' | 'amber' | 'white'
+  variant?: 'mint' | 'cyan' | 'purple' | 'amber' | 'white' | 'gold' | 'pink' | 'emerald'
 }) {
+  const normalizedVariant =
+    variant === 'gold' ? 'amber' : variant === 'emerald' ? 'mint' : variant === 'pink' ? 'purple' : variant
+
   const styles = {
     mint: 'bg-emerald-400 text-slate-950 hover:bg-emerald-300 shadow-lg shadow-emerald-500/20 border-emerald-300/30',
     cyan: 'bg-cyan-400 text-slate-950 hover:bg-cyan-300 shadow-lg shadow-cyan-500/20 border-cyan-300/30',
     purple: 'bg-purple-500 text-white hover:bg-purple-400 shadow-lg shadow-purple-500/20 border-purple-400/30',
     amber: 'bg-amber-400 text-slate-950 hover:bg-amber-300 shadow-lg shadow-amber-500/20 border-amber-300/30',
     white: 'bg-white text-slate-950 hover:bg-slate-100 shadow-lg shadow-white/10 border-white/20',
-  }[variant]
+  }[normalizedVariant]
 
   return (
     <button
